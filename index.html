@@ -96,19 +96,32 @@
 
   <script>
     const noBtn = document.getElementById("noBtn");
-    const body = document.body;
 
-    // Hayır butonu kaçıyor
-    noBtn.addEventListener("mouseenter", () => {
+    function moveNoButton() {
       const maxX = window.innerWidth - noBtn.offsetWidth;
       const maxY = window.innerHeight - noBtn.offsetHeight;
       const randomX = Math.floor(Math.random() * maxX);
       const randomY = Math.floor(Math.random() * maxY);
       noBtn.style.left = randomX + "px";
       noBtn.style.top = randomY + "px";
+    }
+
+    // Masaüstü (fare ile)
+    noBtn.addEventListener("mouseenter", moveNoButton);
+
+    // Mobil (dokunma)
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveNoButton();
     });
 
-    // Evet basınca sadece mesaj ve emoji değişir, arka plan sabit kalır
+    // Her durumda tıklanamaz hale getir
+    noBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      moveNoButton();
+    });
+
+    // Evet butonuna basılınca mesaj ve emoji değişir, arka plan aynı kalır
     function izinOnay() {
       const soru = document.getElementById("soru");
       soru.innerText = "Teşekkür ederim! Derhal hazırlıklara başlıyorum 💻";
