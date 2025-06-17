@@ -6,9 +6,7 @@
   <link rel="icon" href="logo.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
       background: url('logo.png') center center no-repeat, #2e2e2e;
@@ -19,6 +17,7 @@
       margin: 0;
       height: 100vh;
       transition: background 0.5s ease;
+      overflow: hidden;
     }
     h1 {
       font-size: 26px;
@@ -55,6 +54,7 @@
     .no {
       background-color: #e53935;
       color: white;
+      position: absolute;
     }
     .emoji {
       font-size: 90px;
@@ -87,41 +87,33 @@
   <h1 id="soru">Merhabalar Sinan Bey, Pazartesi ve Salı evden çalışabilir miyim?</h1>
   <br>
   <button class="yes" onclick="izinOnay()">Evet 🏡</button>
-  <button class="no" id="noBtn" onclick="eminMisin()">Hayır ❌</button>
+  <button class="no" id="noBtn">Hayır ❌</button>
   <div id="emoji"></div>
   <p style="margin-top:30px; background: rgba(255,255,255,0.1); display:inline-block; padding:10px 20px; border-radius:12px;">
-    💬 Tüm iş bilgisayarım hazır, internet bağlantım stabil ve ekipmanım eksiksizdir.
+    💬 Derhal Göreve başlıyorum. Teşekkürler. :)
   </p>
-  <div class="not">* Bu sayfa mizahi ve sevgi dolu bir izin talebidir :)</div>
+  <div class="not">* mhmtorc izin talebidir. Farklılıklar güzeldir :)</div>
 
   <script>
-    let redFlag = 0;
     const noBtn = document.getElementById("noBtn");
+    const body = document.body;
 
+    // Hayır butonu kaçıyor
     noBtn.addEventListener("mouseenter", () => {
-      noBtn.style.position = "absolute";
-      noBtn.style.top = Math.random() * 70 + "%";
-      noBtn.style.left = Math.random() * 70 + "%";
+      const maxX = window.innerWidth - noBtn.offsetWidth;
+      const maxY = window.innerHeight - noBtn.offsetHeight;
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+      noBtn.style.left = randomX + "px";
+      noBtn.style.top = randomY + "px";
     });
 
+    // Evet basınca sadece mesaj ve emoji değişir, arka plan sabit kalır
     function izinOnay() {
-      document.body.style.background = "linear-gradient(to right, #00b09b, #96c93d)";
       const soru = document.getElementById("soru");
       soru.innerText = "Teşekkür ederim! Bilgisayarımı açıyorum hemen 💻";
       soru.classList.add("success");
       document.getElementById("emoji").innerHTML = '<div class="emoji">😊</div>';
-    }
-
-    function eminMisin() {
-      redFlag++;
-      const soru = document.getElementById("soru");
-      if (redFlag < 4) {
-        soru.innerText += " Lütfen tekrar düşünür müsünüz? 🙏";
-      } else {
-        soru.innerText = "Tamam... ama yine de ofiste gibi çalışacağım 🥲";
-        document.getElementById("emoji").innerHTML = "💼";
-        document.body.style.background = "linear-gradient(to right, #2c3e50, #4ca1af)";
-      }
     }
   </script>
 
